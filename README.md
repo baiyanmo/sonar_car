@@ -1,44 +1,44 @@
-# Sonar Car (Ultrasonic Obstacle-Avoidance Smart Car)
+# Sonar Car (超声波避障寻迹智能小车)
 
-STM32-based ultrasonic obstacle-avoidance and line-tracking smart car with C# Winform upper computer, PCB design files included.
+基于 STM32 的超声波避障寻迹智能小车项目。
 
-[![Stars](https://img.shields.io/github/stars/baiyanmo/sonar_car?style=flat)](https://github.com/baiyanmo/sonar_car/stargazers)
-[![STM32](https://img.shields.io/badge/STM32-F103-blue)](https://www.st.com)
-[![Keil](https://img.shields.io/badge/Keil-uVision5-green)](https://www.keil.com)
+## 项目简介
+本项目使用 STM32 微控制器，结合超声波传感器和红外传感器，实现智能小车的自动寻迹和避障功能。小车能够自主感知周围环境，并在遇到障碍物时自动调整路线，同时支持按照预定黑色轨迹行驶。
 
-## Hardware
-- MCU: STM32F103 series
-- Motor Driver: L298N
-- Ultrasonic: HC-SR04 (obstacle detection and distance measurement)
-- Infrared: Multi-channel reflective sensors (line tracking)
-- Chassis: DC geared motors with encoders
+## 硬件模块
+- **主控芯片**：STM32F103 系列微控制器
+- **电机驱动**：L298N 或类似电机驱动模块
+- **超声波模块**：HC-SR04（用于前方障碍物检测与距离测量）
+- **红外寻迹模块**：多路红外反射传感器（用于黑线路径识别）
+- **车盘与底盘**：带编码器的直流减速电机
 
-## PCB Design
-- PCB design file included: XiaoCheZhuBan.eprj2 (LCEDA format, ready for fabrication)
-- Integrated STM32 minimum system, motor interface, sensor headers, power management
-- 7.4V Li-ion battery support, onboard 5V/3.3V regulation
+## 主板硬件设计
+项目包含完整的 PCB 主板设计文件：
+- **`小车主板打板.eprj2`** — 立创 EDA (LCEDA) 工程文件，可直接用于 PCB 打板
+- 主板集成了 STM32 最小系统、电机驱动接口、传感器引脚排针、电源管理电路
+- 支持 7.4V 锂电池供电，板载 5V/3.3V 稳压电路
 
-## Software
-- Sensor drivers: ultrasonic timing control, IR sensor reading
-- Motor control: PWM speed control, direction control
-- Obstacle avoidance: real-time distance-based path planning
-- Line tracking: IR array deviation calculation with differential steering
+## 软件架构
+本项目采用模块化编程，主要包含：
+- **传感器驱动**：超声波时序控制、红外传感器状态读取
+- **电机控制**：PWM 调速、前进/后退/转向控制
+- **核心算法**：
+  - 避障逻辑：根据超声波测距结果实时判断前方路况
+  - 寻迹逻辑：根据红外传感器返回的阵列信号计算偏差并调整左右轮差速
 
-## Upper Computer (Winform)
-C# Winform application in winform/ directory for:
-- Real-time sensor data monitoring (distance, IR status)
-- Remote control commands
-- Debugging and parameter tuning
+## 上位机控制 (Winform)
+项目中还包含一个基于 C# Winform 开发的上位机监控程序，位于 `winform` 目录下，可用于：
+- 实时接收并显示小车传感器数据（超声波距离、红外状态）
+- 手动下发控制指令
+- 调试与参数调整
 
-## Development
-- IDE: Keil uVision5 (MDK-ARM)
-- Library: STM32 Standard Peripheral Library
+## 环境与编译
+- **开发环境**：Keil uVision5 (MDK-ARM)
+- **库文件**：基于 STM32 标准库 (Standard Peripheral Library)
 
-## Quick Start
-1. Open Project.uvprojx in Keil (in KeSheXiaoChe/ folder)
-2. Compile and flash to STM32 via ST-Link/DAP-Link
-3. Power on and observe line-tracking and obstacle-avoidance behavior
-4. (Optional) Run Winform upper computer with serial/Bluetooth module
-
-## License
-MIT
+## 使用说明
+1. 将硬件连线确认无误（超声波与红外模块对应 STM32 的 IO 口请参考源码定义）。
+2. 使用 Keil 打开 `课设小车` 目录下的工程文件 (`Project.uvprojx`)。
+3. 编译工程，并使用 ST-Link / DAP-Link 将程序下载到 STM32 芯片中。
+4. 打开小车电源，观察其寻迹与避障动作。
+5. （可选）打开 Winform 上位机配合串口或蓝牙模块进行实时监控。
