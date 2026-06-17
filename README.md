@@ -1,45 +1,44 @@
-# Sonar Car (超声波避障寻迹智能小车)
+# Sonar Car (Ultrasonic Obstacle-Avoidance Smart Car)
 
-基于 STM32 的超声波避障寻迹智能小车项目。支持红外循迹、超声波避障、蓝牙远程控制，配套 C# Winform 上位机。
+STM32-based ultrasonic obstacle-avoidance and line-tracking smart car with C# Winform upper computer, PCB design files included.
 
 [![Stars](https://img.shields.io/github/stars/baiyanmo/sonar_car?style=flat)](https://github.com/baiyanmo/sonar_car/stargazers)
+[![STM32](https://img.shields.io/badge/STM32-F103-blue)](https://www.st.com)
+[![Keil](https://img.shields.io/badge/Keil-uVision5-green)](https://www.keil.com)
 
-## 项目简介
-本项目使用 STM32F103 微控制器，结合 HC-SR04 超声波传感器和多路红外传感器，实现智能小车的自动循迹和避障。小车能感知周围环境自动调整路线，同时支持按预定黑色轨迹行驶。
+## Hardware
+- MCU: STM32F103 series
+- Motor Driver: L298N
+- Ultrasonic: HC-SR04 (obstacle detection and distance measurement)
+- Infrared: Multi-channel reflective sensors (line tracking)
+- Chassis: DC geared motors with encoders
 
-## 硬件模块
-- **主控**: STM32F103 系列
-- **电机驱动**: L298N
-- **超声波**: HC-SR04（障碍物检测与测距）
-- **红外寻迹**: 多路红外反射传感器（黑线识别）
-- **底盘**: 带编码器直流减速电机
+## PCB Design
+- PCB design file included: XiaoCheZhuBan.eprj2 (LCEDA format, ready for fabrication)
+- Integrated STM32 minimum system, motor interface, sensor headers, power management
+- 7.4V Li-ion battery support, onboard 5V/3.3V regulation
 
-## 主板硬件设计
-- **小车主板打板.eprj2** — 立创 EDA (LCEDA) 工程文件，可直接打板
-- 集成 STM32 最小系统、电机驱动接口、传感器排针、电源管理
-- 支持 7.4V 锂电池供电，板载 5V/3.3V 稳压
+## Software
+- Sensor drivers: ultrasonic timing control, IR sensor reading
+- Motor control: PWM speed control, direction control
+- Obstacle avoidance: real-time distance-based path planning
+- Line tracking: IR array deviation calculation with differential steering
 
-## 软件架构
-- **传感器驱动**: 超声波时序控制、红外状态读取
-- **电机控制**: PWM 调速、前进/后退/转向
-- **避障逻辑**: 超声波实时测距判断路况
-- **循迹逻辑**: 红外阵列信号计算偏差，调整左右轮差速
+## Upper Computer (Winform)
+C# Winform application in winform/ directory for:
+- Real-time sensor data monitoring (distance, IR status)
+- Remote control commands
+- Debugging and parameter tuning
 
-## 上位机 (Winform)
-C# Winform 上位机，支持串口/蓝牙实时监控、数据可视化、远程控制。
+## Development
+- IDE: Keil uVision5 (MDK-ARM)
+- Library: STM32 Standard Peripheral Library
 
-## 开发环境
-- Keil uVision5 (MDK-ARM)
-- STM32 标准外设库
+## Quick Start
+1. Open Project.uvprojx in Keil (in KeSheXiaoChe/ folder)
+2. Compile and flash to STM32 via ST-Link/DAP-Link
+3. Power on and observe line-tracking and obstacle-avoidance behavior
+4. (Optional) Run Winform upper computer with serial/Bluetooth module
 
-## 快速开始
-1. Keil 打开 
-2. 编译下载到 STM32（ST-Link/DAP-Link）
-3. 上电观察寻迹避障动作
-4. (可选) 运行 Winform 上位机配合蓝牙模块监控
-
-## 项目结构
-
-
-## 许可证
+## License
 MIT
